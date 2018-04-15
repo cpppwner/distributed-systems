@@ -1,4 +1,4 @@
-package at.aau.ds;
+package at.aau.ds.client;
 
 import java.io.IOException;
 import java.net.*;
@@ -10,7 +10,7 @@ public class Client {
     private static final int DEFAULT_SERVER_PORT = 1234;
     private static final Charset QUOTE_CHARSET = Charset.forName("UTF-8");
 
-    private static final int NUM_QUOTES = 5;
+    private static final int NUM_QUOTES = 1;
 
     private final String serverHost;
     private final int serverPort;
@@ -33,7 +33,6 @@ public class Client {
     private String getQuoteFromServer() {
 
         try (DatagramSocket datagramSocket = new DatagramSocket()) {
-
 
             // send an empty datagram packet to server
             DatagramPacket out = new DatagramPacket(new byte[0], 0, new InetSocketAddress(serverHost, serverPort));

@@ -1,4 +1,4 @@
-package at.aau.ds;
+package at.aau.ds.server;
 
 import java.io.IOException;
 import java.net.DatagramPacket;
