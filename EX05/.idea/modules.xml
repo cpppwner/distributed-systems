@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/EX05.iml" filepath="$PROJECT_DIR$/EX05.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ex5.2_client/ex5.2_client.iml" filepath="$PROJECT_DIR$/ex5.2_client/ex5.2_client.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ex5.2_server/ex5.2_server.iml" filepath="$PROJECT_DIR$/ex5.2_server/ex5.2_server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ex5.3_server/ex5.3_server.iml" filepath="$PROJECT_DIR$/ex5.3_server/ex5.3_server.iml" />
+    </modules>
+  </component>
+</project>

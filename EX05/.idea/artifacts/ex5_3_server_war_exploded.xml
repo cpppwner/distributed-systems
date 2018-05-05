@@ -1,0 +1,14 @@
+<component name="ArtifactManager">
+  <artifact type="exploded-war" name="ex5.3_server:war exploded">
+    <output-path>$PROJECT_DIR$/out/artifacts/ex5_3_server_war_exploded</output-path>
+    <root id="root">
+      <element id="directory" name="WEB-INF">
+        <element id="directory" name="classes">
+          <element id="module-output" name="ex5.3_server" />
+        </element>
+        <element id="directory" name="lib" />
+      </element>
+      <element id="javaee-facet-resources" facet="ex5.3_server/web/Web" />
+    </root>
+  </artifact>
+</component>
