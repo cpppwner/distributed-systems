@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/EX05.iml" filepath="$PROJECT_DIR$/EX05.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex5.2_client/ex5.2_client.iml" filepath="$PROJECT_DIR$/ex5.2_client/ex5.2_client.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex5.2_server/ex5.2_server.iml" filepath="$PROJECT_DIR$/ex5.2_server/ex5.2_server.iml" />
+      <module fileurl="file://$PROJECT_DIR$/ex5.3_client/ex5.3_client.iml" filepath="$PROJECT_DIR$/ex5.3_client/ex5.3_client.iml" />
       <module fileurl="file://$PROJECT_DIR$/ex5.3_server/ex5.3_server.iml" filepath="$PROJECT_DIR$/ex5.3_server/ex5.3_server.iml" />
     </modules>
   </component>
