@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <!--Import Google Icon Font-->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <!--Import materialize.css-->
+        <link type="text/css" rel="stylesheet" href="materialize/css/materialize.min.css"  media="screen,projection"/>
+
+        <!--Let browser know website is optimized for mobile-->
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <title>Movie database</title>
+    </head>
+    <body>
+        <!-- title of the page -->
+        <div class="card-panel teal lighten-2"><h3>Movie database</h3></div>
+
+        <div id="container" class="container"></div>
+        <div id="buttonContainer" class="container right-align"></div>
+
+        <!--JavaScript at end of body for optimized loading-->
+        <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
+        <script type="text/javascript" src="jquery/jquery-3.3.1.min.js"></script>
+        <script type="text/javascript" src="jquery.jsonrpcclient.js-master/jquery.jsonrpcclient.js"></script>
+        <script type="text/javascript">
+            'use strict';
+            var client = new $.JsonRpcClient({ ajaxUrl: 'http://localhost:1337/rpc'});
+            var showMovieDetails = function(movieTitle) {
+                                // get a list of movie titles when document is ready
+                                var client = new $.JsonRpcClient({ ajaxUrl: 'http://localhost:1337/rpc'});
+                client.call('details',
+                            [movieTitle],
+                            function(result) {
+                                // build up the details table
+                                var table = '<table>';
+                                table += '<tbody>';
+                                table += '<tr><td>Title: </td><td>' + result.title + '</td></tr>';
+                                table += '<tr><td>Year: </td><td>' + result.year + '</td></tr>';
+                                table += '<tr><td>Movie info: </td><td>' + result.movieInfo + '</td></tr>';
+                                table += '<tr><td>Num rents: </td><td>' + result.numRents + '</td></tr>';
+                                table += '</tbody>';
+                                table += '</table>';
+
+                                var buttons = '<div class="row">';
+                                buttons += '<a href="javascript:;" onclick="rentMovie(\'' + movieTitle.replace('\'', '\\\'') + '\');" class="waves-effect waves-light btn">Rent</a>';
+                                buttons += '<a href="javascript:;" onclick="showMovieList();" class="waves-effect waves-light btn">Back</a>';
+                                buttons += '</div>';
+
+                                // clear containers child elements
+                                $('#container').empty();
+                                $('#buttonContainer').empty();
+
+                                // add newly created table
+                                $('#container').append(table);
+                                $('#buttonContainer').append(buttons);
+                            },
+                            function(error) {
+                                // in case of error, just log the error
+                                console.log('There was an error' + error); 
+                            });
+            }
+            var showMovieList = function() {
+                client.call('titles',
+                            [],
+                            function(result) {
+                                // build up the movie database table
+                                var table = '<table>';
+                                table += '<thead><tr><th>Movie title</th><th>&nbsp;</th></tr></thead>';
+                                table += '<tbody>';
+                                result.forEach(function(element) {
+                                    table += '<tr>';
+                                    table += '<td>' + element + '</td>';
+                                    table += '<td><a href="javascript:;" onclick="showMovieDetails(\'' + element.replace('\'', '\\\'') + '\');" class="waves-effect waves-light btn">Details</a></td>';
+                                    table += '</tr>';
+                                });
+                                table += '</tbody>';
+                                table += '</table>';
+
+                                // clear containers child elements
+                                $('#container').empty();
+                                $('#buttonContainer').empty();
+
+                                // add newly created table
+                                $('#container').append(table);
+                            },
+                            function(error) {
+                                // in case of error, just log the error
+                                console.log('There was an error' + error); 
+                            });
+
+            }
+            var rentMovie = function(movieTitle) {
+                                // get a list of movie titles when document is ready
+                                var client = new $.JsonRpcClient({ ajaxUrl: 'http://localhost:1337/rpc'});
+                client.call('rent',
+                            [movieTitle],
+                            function(result) {
+                                if (result) {
+                                    // rent successful - update details
+                                    showMovieDetails(movieTitle);
+                                }
+                            },
+                            function(error) {
+                                // in case of error, just log the error
+                                console.log('There was an error' + error); 
+                            });
+            }
+            $(document).ready(function() {
+                // get a list of movie titles when document is ready
+                showMovieList();
+            });
+        </script>
+    </body>
+</html>
