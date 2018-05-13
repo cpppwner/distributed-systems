@@ -14,8 +14,16 @@
         <!-- title of the page -->
         <div class="card-panel teal lighten-2"><h3>Movie database</h3></div>
 
-        <div id="container" class="container"></div>
-        <div id="buttonContainer" class="container right-align"></div>
+        <div class="container">
+
+            <div id="content" class="row">
+
+            </div>
+            <div id="buttons" clas="row valign-wrapper">
+
+            </div>
+
+        </div>
 
         <!--JavaScript at end of body for optimized loading-->
         <script type="text/javascript" src="materialize/js/materialize.min.js"></script>
@@ -31,27 +39,33 @@
                             [movieTitle],
                             function(result) {
                                 // build up the details table
-                                var table = '<table>';
-                                table += '<tbody>';
-                                table += '<tr><td>Title: </td><td>' + result.title + '</td></tr>';
-                                table += '<tr><td>Year: </td><td>' + result.year + '</td></tr>';
-                                table += '<tr><td>Movie info: </td><td>' + result.movieInfo + '</td></tr>';
-                                table += '<tr><td>Num rents: </td><td>' + result.numRents + '</td></tr>';
-                                table += '</tbody>';
-                                table += '</table>';
+                                var table = $('<table>')
+                                    .append($('<tbody>')
+                                        .append($('<tr>').append($('<td>', {text: 'Title: '}))
+                                                         .append($('<td>', {text: result.title})))
+                                        .append($('<tr>').append($('<td>', {text: 'Year: '}))
+                                                         .append($('<td>', {text: result.year})))
+                                        .append($('<tr>').append($('<td>', {text: 'Movie info: '}))
+                                                         .append($('<td>', {text: result.movieInfo})))
+                                        .append($('<tr>').append($('<td>', {text: 'Num rents: '}))
+                                                         .append($('<td>', {text: result.numRents}))));
 
-                                var buttons = '<div class="row">';
-                                buttons += '<a href="javascript:;" onclick="rentMovie(\'' + movieTitle.replace('\'', '\\\'') + '\');" class="waves-effect waves-light btn">Rent</a>';
-                                buttons += '<a href="javascript:;" onclick="showMovieList();" class="waves-effect waves-light btn">Back</a>';
-                                buttons += '</div>';
+                                var rentButton = $('<a>', { href: 'javascript:;', class: 'waves-effect waves-light btn', text: 'Rent'});
+                                rentButton.click(function() {rentMovie(movieTitle);});
+                                var backButton = $('<a>', { href: 'javascript:;', class: 'waves-effect waves-light btn', text: 'Back'});
+                                backButton.click(function() {showMovieList();});
+
+                                var buttons = $('<div>', {class:'row'})
+                                    .append($('<div>', {class: 'col offset-s10 s1'}).append(rentButton))
+                                    .append($('<div>', {class: 'col s1'}).append(backButton));
 
                                 // clear containers child elements
-                                $('#container').empty();
-                                $('#buttonContainer').empty();
+                                $('#content').empty();
+                                $('#buttons').empty();
 
                                 // add newly created table
-                                $('#container').append(table);
-                                $('#buttonContainer').append(buttons);
+                                $('#content').append(table);
+                                $('#buttons').append(buttons);
                             },
                             function(error) {
                                 // in case of error, just log the error
@@ -63,24 +77,28 @@
                             [],
                             function(result) {
                                 // build up the movie database table
-                                var table = '<table>';
-                                table += '<thead><tr><th>Movie title</th><th>&nbsp;</th></tr></thead>';
-                                table += '<tbody>';
+                                var table = $('<table>')
+                                    .append($('<thead>')
+                                        .append($('<tr>')
+                                            .append($('<th>', {text: 'Movie title'}))
+                                            .append($('<th>', {html: '&nbsp;'}))
+                                        ));
+                                var tbody = $('<tbody>');
                                 result.forEach(function(element) {
-                                    table += '<tr>';
-                                    table += '<td>' + element + '</td>';
-                                    table += '<td><a href="javascript:;" onclick="showMovieDetails(\'' + element.replace('\'', '\\\'') + '\');" class="waves-effect waves-light btn">Details</a></td>';
-                                    table += '</tr>';
+                                    var detailsButton = $('<a>', {href: 'javascript:;',  class: 'waves-effect waves-light btn', text: 'Details'});
+                                    detailsButton.click(function() {showMovieDetails(element);});
+                                    tbody.append($('<tr>')
+                                        .append($('<td>', {text: element}))
+                                        .append($('<td>').append(detailsButton)));
                                 });
-                                table += '</tbody>';
-                                table += '</table>';
+                                table.append(tbody);
 
                                 // clear containers child elements
-                                $('#container').empty();
-                                $('#buttonContainer').empty();
+                                $('#content').empty();
+                                $('#buttons').empty();
 
                                 // add newly created table
-                                $('#container').append(table);
+                                $('#content').append(table);
                             },
                             function(error) {
                                 // in case of error, just log the error

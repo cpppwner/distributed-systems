@@ -1,5 +1,7 @@
 'use strict';
 
+process.title = 'MovieDatabase';
+
 // import Server
 const RpcServer = require('node-json-rpc2').Server;
 const MovieDatabase = require('./moviedb').getInstance();
